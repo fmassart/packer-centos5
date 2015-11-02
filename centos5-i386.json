@@ -60,19 +60,21 @@
     }
   ],
   "post-processors": [
-    {
-      "type": "vagrant",
-      "keep_input_artifact": false
-    },
-    {
+    [
+      {
+        "type": "vagrant",
+        "keep_input_artifact": false
+      },
+      {
         "type": "atlas",
         "only": ["virtualbox-iso"],
         "artifact": "{{user `atlas_username`}}/{{user `atlas_name`}}",
         "artifact_type": "vagrant.box",
         "metadata": {
-            "provider": "virtualbox",
-            "version": "0.0.1"
+         "provider": "virtualbox",
+          "version": "0.0.1"
         }
-    }
+      }
+    ]
   ]
 }
