@@ -62,7 +62,7 @@
   "post-processors": [
     {
       "type": "vagrant",
-      "output": "boxes/centos-5-i386-{{isotime}}.box"
+      "keep_input_artifact": false
     },
     {
         "type": "atlas",
