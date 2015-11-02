@@ -6,7 +6,6 @@
   "builders": [
     {
       "type": "virtualbox-iso",
-      "name": "centos-5-vagrant-i386",
       "boot_wait": "10s",
       "disk_size": 10952,
       "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
