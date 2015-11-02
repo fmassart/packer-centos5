@@ -1,0 +1,65 @@
+{
+  "builders": [
+    {
+      "type": "virtualbox-iso",
+      "name": "centos-5-vagrant-i386",
+      "boot_wait": "10s",
+      "disk_size": 10952,
+      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+      "guest_os_type": "RedHat",
+      "headless": true,
+      "ssh_pty" : true,
+      "http_directory": "http",
+      "iso_checksum": "3f43eb9f3e2d45425baf691c0142f79d",
+      "iso_checksum_type": "md5",
+      "iso_url": "http://centos.osuosl.org/5.11/isos/i386/CentOS-5.11-i386-netinstall.iso",
+      "shutdown_command": "echo '/sbin/halt -h -p' > shutdown.sh; echo 'vagrant'|sudo -S sh 'shutdown.sh'",
+      "ssh_password": "vagrant",
+      "ssh_port": 22,
+      "ssh_username": "vagrant",
+      "ssh_wait_timeout": "10000s",
+      "virtualbox_version_file": ".vbox_version",
+      "vboxmanage": [
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--memory",
+          "512"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--cpus",
+          "1"
+        ]
+      ],
+      "boot_command": [
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks-rhel5-i386.cfg<enter><wait>"
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "scripts/common.sh",
+      "destination": "/tmp/common.sh"
+    },
+    {
+      "type": "shell",
+      "scripts": [
+        "scripts/epel.sh",
+        "scripts/vbox-additions.sh",
+        "scripts/setup-vagrant.sh",
+        "scripts/cleanup.sh",
+        "scripts/zerodisk.sh"
+      ],
+      "execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'"
+    }
+  ],
+  "post-processors": [
+    {
+      "type": "vagrant",
+      "output": "boxes/centos-5-i386-{{isotime}}.box"
+    }
+  ]
+}
