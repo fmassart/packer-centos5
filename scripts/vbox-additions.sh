@@ -29,7 +29,8 @@ elif [ -f /etc/debian_version ] ; then
 fi
 
 # Installing the virtualbox guest additions
-VBOX_VERSION=$(cat /home/vagrant/.vbox_version)
+#VBOX_VERSION=$(cat /home/vagrant/.vbox_version)
+VBOX_VERSION=5.0.10
 VBOX_ISO=/home/vagrant/VBoxGuestAdditions_${VBOX_VERSION}.iso
 cd /tmp
 
@@ -50,4 +51,3 @@ elif [ -f /etc/debian_version ] ; then
     $apt remove linux-headers-$(uname -r)
     $apt autoremove
 fi
-
